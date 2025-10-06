@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const connectDB = require('./config/db.config')
 require('dotenv').config()
 
@@ -8,6 +9,14 @@ const cartRoutes = require('./routes/cart.routes')
 const orderRoutes = require('./routes/order.routes')
 
 const app = express()
+
+app.use(cors({
+  origin: [
+    'http://localhost:5173', 
+    'https://finance-cart-2.onrender.com' 
+  ],
+  credentials: true
+}))
 
 app.use(express.json())
 

@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+/* src/styles/custom.css */
+
+/* Custom classes not provided by Tailwind */
+
+/* Example: Custom button shadow */
+.btn-shadow {
+  @apply shadow-lg hover:shadow-xl transition-shadow duration-300;
+}
+
+/* Example: Card hover effect */
+.card-hover:hover {
+  @apply transform scale-105 transition-transform duration-300;
+}
+
+/* Example: Custom gradient background */
+.bg-vertofx {
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+}
+
+/* Example: Responsive text override */
+.text-xl-lg {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 768px) {
+  .text-xl-lg {
+    font-size: 1.5rem;
+  }
+}
