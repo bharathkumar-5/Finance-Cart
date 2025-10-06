@@ -1,0 +1,31 @@
+{
+  "name": "vertofx-shopping-cart-backend",
+  "version": "1.0.0",
+  "description": "Backend for Service Subscription Cart Project for VertoFX",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "vertofx",
+    "shopping-cart",
+    "backend",
+    "express",
+    "mongodb",
+    "fullstack"
+  ],
+  "author": "Bharath Kumar",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.0",
+    "nodemailer": "^7.0.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
