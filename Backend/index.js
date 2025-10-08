@@ -12,8 +12,9 @@ const app = express()
 
 app.use(cors({
   origin: [
-    'http://localhost:5173', 
-    'https://finance-cart-2.onrender.com' 
+    'http://localhost:5173',
+    'http://localhost:5175',
+    'https://finance-cart-le1u.vercel.app'
   ],
   credentials: true
 }))
