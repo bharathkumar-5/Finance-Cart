@@ -99,7 +99,7 @@ VertoFX-Cart/
 
 Open in browser at http://localhost:5173 (Vite default)
 
-Usage
+## Usage
 
 Signup or Login as User or Admin
 
@@ -111,7 +111,7 @@ Checkout to confirm subscriptions
 
 View order history (Users) or manage services/orders (Admins)
 
-Key Skills Demonstrated
+## Key Skills Demonstrated
 
 Full-Stack Development: Frontend + Backend + Database integration
 
@@ -125,7 +125,7 @@ Responsive UI/UX: Tailwind CSS, clean design
 
 API Integration: Frontend-backend communication
 
-Future Enhancements
+## Future Enhancements
 
 Implement real payment gateway integration
 
@@ -135,7 +135,7 @@ Add analytics dashboard for Admins
 
 Optimize performance and security
 
-License
+## License
 
 This project is for educational and professional portfolio purposes.
 
