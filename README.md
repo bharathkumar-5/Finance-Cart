@@ -1,4 +1,4 @@
-# Simple Shopping Cart Project – VertoFX
+# Simple Shopping Cart Project – VertoFX (Full Stack)
 
 ## Project Overview
 This is a **full-stack web application** simulating a **service subscription shopping cart** for VertoFX, a financial services platform.  
