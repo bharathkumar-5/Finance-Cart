@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react"
-import axios from "axios"
 import { AuthContext } from "../context/AuthContext"
+import apiClient from "../api/apiClient"
 import { useNavigate } from "react-router-dom"
 
 const paymentMethods = [
@@ -12,7 +12,7 @@ const paymentMethods = [
 const Checkout = () => {
   const { token } = useContext(AuthContext)
   const navigate = useNavigate()
-  const [selectedPayment, setSelectedPayment] = useState(null)
+  const [selectedPayment, setSelectedPayment] = useState("")
   const [email, setEmail] = useState("")
   const [paymentStatus, setPaymentStatus] = useState("")
 
@@ -21,21 +21,25 @@ const Checkout = () => {
       alert("Select payment method and enter email")
       return
     }
+
     setPaymentStatus(`Processing ${selectedPayment} payment...`)
-    setTimeout(async () => {
-      try {
-        const res = await axios.post(
-          "/api/orders/checkout",
-          { paymentMethod: selectedPayment, email },
-          { headers: { Authorization: `Bearer ${token}` } }
-        )
-        setPaymentStatus(res.data.msg || "Payment successful, order placed!")
-        setTimeout(() => navigate("/orders"), 1500)
-      } catch (error) {
-        setPaymentStatus("Payment failed",error)
-        alert("Checkout failed")
-      }
-    }, 1500)
+
+    try {
+      // Use apiClient with baseURL already pointing to your backend
+      const res = await apiClient.post(
+        "/orders/checkout",
+        { paymentMethod: selectedPayment, email },
+        { headers: { Authorization: `Bearer ${token}` } }
+      )
+      setPaymentStatus(res.data.msg || "Payment successful, order placed!")
+
+      // Redirect to Orders page after 1.5s
+      setTimeout(() => navigate("/orders"), 1500)
+    } catch (error) {
+      console.error("Checkout Error:", error)
+      setPaymentStatus("Payment failed")
+      alert(error.response?.data?.msg || "Checkout failed")
+    }
   }
 
   return (
@@ -46,7 +50,10 @@ const Checkout = () => {
       <div className="mb-6">
         <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
         {paymentMethods.map(method => (
-          <label key={method.id} className="flex items-center mb-3 p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition">
+          <label
+            key={method.id}
+            className="flex items-center mb-3 p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition"
+          >
             <input
               type="radio"
               name="paymentMethod"

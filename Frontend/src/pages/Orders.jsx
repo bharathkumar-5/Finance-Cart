@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react"
-import axios from "axios"
 import { AuthContext } from "../context/AuthContext"
+import apiClient from "../api/apiClient"
 
 const Orders = () => {
   const { token } = useContext(AuthContext)
@@ -9,13 +9,11 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("/api/orders", {
-          headers: { Authorization: `Bearer ${token}` }
-        })
+        const res = await apiClient.get("/orders") // <- apiClient handles baseURL and token
         setOrders(res.data)
       } catch {
-      alert("Failed to fetch Order")
-    }
+        alert("Failed to fetch orders")
+      }
     }
     fetchOrders()
   }, [token])
