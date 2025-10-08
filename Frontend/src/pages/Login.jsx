@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react"
-import axios from "axios"
 import { AuthContext } from "../context/AuthContext"
 import { useNavigate, useLocation, Link } from "react-router-dom"
+import apiClient from "../api/apiClient"
 import heroImg from "../assets/loginbackground.jpg"
 
 const Login = () => {
@@ -16,7 +16,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault()
     try {
-      const res = await axios.post("/api/users/login", { email, password })
+      const res = await apiClient.post("/users/login", { email, password }) 
       login(res.data.user, res.data.token)
       if (res.data.user.role === "admin") {
         navigate("/admin-dashboard", { replace: true })

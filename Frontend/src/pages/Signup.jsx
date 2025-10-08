@@ -1,7 +1,7 @@
 import React, { useState } from "react"
-import axios from "axios"
-import { validateEmail, validatePassword } from "../utils/validators"
 import { useNavigate, Link } from "react-router-dom"
+import apiClient from "../api/apiClient"
+import { validateEmail, validatePassword } from "../utils/validators"
 import heroImg from "../assets/finance-hero.jpg"
 
 const Signup = () => {
@@ -22,7 +22,7 @@ const Signup = () => {
       return
     }
     try {
-      await axios.post("/api/users/signup", { name, email, password })
+      await apiClient.post("/users/signup", { name, email, password }) 
       alert("Signup successful")
       navigate("/login")
     } catch {
@@ -32,7 +32,6 @@ const Signup = () => {
 
   return (
     <div className="min-h-screen flex">
-      {/* Left Side Hero Image */}
       <div
         className="hidden md:flex w-1/2 bg-cover bg-center relative"
         style={{ backgroundImage: `url(${heroImg})` }}
@@ -43,8 +42,6 @@ const Signup = () => {
           <p className="text-lg">Manage your subscriptions and finances with smart tools</p>
         </div>
       </div>
-
-      {/* Right Side Signup Card */}
       <div className="flex w-full md:w-1/2 justify-center items-center bg-gray-50">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl p-10 relative overflow-hidden">
           <h2 className="text-3xl font-extrabold text-gray-900 text-center mb-6">Create Your Account</h2>
@@ -93,7 +90,6 @@ const Signup = () => {
               Login
             </Link>
           </p>
-          {/* Decorative Circles */}
           <div className="absolute -top-20 -right-20 w-40 h-40 bg-green-200 rounded-full opacity-20 animate-pulse"></div>
           <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-blue-200 rounded-full opacity-20 animate-pulse"></div>
         </div>
