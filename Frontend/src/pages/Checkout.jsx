@@ -43,51 +43,54 @@ const Checkout = () => {
   }
 
   return (
-    <div className="container mx-auto p-6 max-w-md bg-white shadow-lg rounded-2xl border">
-      <h2 className="text-3xl font-extrabold mb-4 text-center">Checkout</h2>
-      <p className="mb-6 text-gray-600 text-center">Choose payment method and enter your email</p>
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+  <div className="w-full max-w-md bg-white shadow-lg rounded-2xl border p-6">
+    <h2 className="text-3xl font-extrabold mb-4 text-center">Checkout</h2>
+    <p className="mb-6 text-gray-600 text-center">Choose payment method and enter your email</p>
 
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
-        {paymentMethods.map(method => (
-          <label
-            key={method.id}
-            className="flex items-center mb-3 p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition"
-          >
-            <input
-              type="radio"
-              name="paymentMethod"
-              value={method.id}
-              onChange={e => setSelectedPayment(e.target.value)}
-              className="mr-3 accent-blue-500"
-            />
-            <span>{method.name}</span>
-          </label>
-        ))}
-      </div>
-
-      <div className="mb-6">
-        <label htmlFor="email" className="block font-semibold mb-2">Order Confirmation Email</label>
-        <input
-          type="email"
-          id="email"
-          placeholder="Enter your email"
-          value={email}
-          onChange={e => setEmail(e.target.value)}
-          className="w-full border px-4 py-2 rounded-lg"
-          required
-        />
-      </div>
-
-      <button
-        onClick={handlePayment}
-        className="w-full bg-green-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-600 transition"
-      >
-        Pay & Place Order
-      </button>
-
-      {paymentStatus && <p className="mt-6 text-center text-blue-600 font-semibold">{paymentStatus}</p>}
+    <div className="mb-6">
+      <h3 className="text-lg font-semibold mb-2">Payment Method</h3>
+      {paymentMethods.map(method => (
+        <label
+          key={method.id}
+          className="flex items-center mb-3 p-3 border rounded-lg cursor-pointer hover:bg-blue-50 transition"
+        >
+          <input
+            type="radio"
+            name="paymentMethod"
+            value={method.id}
+            onChange={e => setSelectedPayment(e.target.value)}
+            className="mr-3 accent-blue-500"
+          />
+          <span>{method.name}</span>
+        </label>
+      ))}
     </div>
+
+    <div className="mb-6">
+      <label htmlFor="email" className="block font-semibold mb-2">Order Confirmation Email</label>
+      <input
+        type="email"
+        id="email"
+        placeholder="Enter your email"
+        value={email}
+        onChange={e => setEmail(e.target.value)}
+        className="w-full border px-4 py-2 rounded-lg"
+        required
+      />
+    </div>
+
+    <button
+      onClick={handlePayment}
+      className="w-full bg-green-500 text-white font-semibold px-6 py-3 rounded-lg hover:bg-green-600 transition"
+    >
+      Pay & Place Order
+    </button>
+
+    {paymentStatus && <p className="mt-6 text-center text-blue-600 font-semibold">{paymentStatus}</p>}
+  </div>
+</div>
+
   )
 }
 
