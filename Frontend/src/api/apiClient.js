@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseURL = 'https://finance-cart-2.onrender.com/api' || 'http://localhost:5000/api'
+const baseURL = 'https://finance-cart-2.onrender.com/api'
 
 const apiClient = axios.create({
   baseURL,
