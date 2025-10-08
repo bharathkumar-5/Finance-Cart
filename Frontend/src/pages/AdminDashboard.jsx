@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext, useCallback } from "react"
-import axios from "axios"
-import { AuthContext } from "../context/AuthContext"
 import { FiEdit, FiTrash2, FiChevronDown, FiChevronUp } from "react-icons/fi"
+import { AuthContext } from "../context/AuthContext"
+import apiClient from "../api/apiClient"
 
 const AdminDashboard = () => {
   const [services, setServices] = useState([])
@@ -16,7 +16,7 @@ const AdminDashboard = () => {
 
   const fetchServices = useCallback(async () => {
     try {
-      const res = await axios.get("/api/services", { headers: { Authorization: `Bearer ${token}` } })
+      const res = await apiClient.get("/services", { headers: { Authorization: `Bearer ${token}` } })
       setServices(res.data)
     } catch {
       alert("Failed to fetch services")
@@ -25,7 +25,7 @@ const AdminDashboard = () => {
 
   const fetchOrders = useCallback(async () => {
     try {
-      const res = await axios.get("/api/orders/all", { headers: { Authorization: `Bearer ${token}` } })
+      const res = await apiClient.get("/orders/all", { headers: { Authorization: `Bearer ${token}` } })
       setOrders(res.data)
       const expanded = res.data.reduce((acc, order) => {
         const key = order.user?.name || order.user?.email || "Unknown User"
@@ -48,7 +48,7 @@ const AdminDashboard = () => {
   const handleAddService = async e => {
     e.preventDefault()
     try {
-      await axios.post("/api/services", newService, { headers: { Authorization: `Bearer ${token}` } })
+      await apiClient.post("/services/add", newService, { headers: { Authorization: `Bearer ${token}` } })
       setNewService({ name: "", fee: "", plan: "" })
       fetchServices()
     } catch {
@@ -59,7 +59,7 @@ const AdminDashboard = () => {
   const handleEditService = async e => {
     e.preventDefault()
     try {
-      await axios.put(`/api/services/${editService._id}`, editService, { headers: { Authorization: `Bearer ${token}` } })
+      await apiClient.patch(`/services/update/${editService._id}`, editService, { headers: { Authorization: `Bearer ${token}` } })
       setEditService(null)
       fetchServices()
     } catch {
@@ -70,7 +70,7 @@ const AdminDashboard = () => {
   const handleDeleteService = async id => {
     if (!window.confirm("Delete this service?")) return
     try {
-      await axios.delete(`/api/services/${id}`, { headers: { Authorization: `Bearer ${token}` } })
+      await apiClient.delete(`/services/delete/${id}`, { headers: { Authorization: `Bearer ${token}` } })
       fetchServices()
     } catch {
       alert("Failed to delete service")
@@ -100,12 +100,7 @@ const AdminDashboard = () => {
     <div className="container mx-auto p-6 space-y-10">
       <h2 className="text-4xl font-bold text-center text-blue-600 mt-12 mb-6">Admin Dashboard</h2>
 
-      <div className="flex flex-wrap justify-center gap-4 mb-10">
-        <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold">Manage Services</span>
-        <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full text-sm font-semibold">View & Filter Orders</span>
-        <span className="px-4 py-2 bg-purple-100 text-purple-700 rounded-full text-sm font-semibold">Edit / Delete</span>
-      </div>
-
+      {/* Services Management */}
       <div className="bg-white shadow-lg rounded-xl p-6">
         <h3 className="text-2xl font-semibold mb-4">{editService ? "Edit Service" : "Add New Service"}</h3>
         <form onSubmit={editService ? handleEditService : handleAddService} className="grid grid-cols-1 md:grid-cols-4 gap-4">
@@ -119,6 +114,7 @@ const AdminDashboard = () => {
         </form>
       </div>
 
+      {/* List of Services */}
       <div>
         <h3 className="text-2xl font-semibold mb-4">Services</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -138,6 +134,7 @@ const AdminDashboard = () => {
         </div>
       </div>
 
+      {/* Orders Section */}
       <div>
         <h3 className="text-2xl font-semibold mb-4">All Orders</h3>
 
