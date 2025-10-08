@@ -7,6 +7,7 @@ const userRoutes = require('./routes/user.routes')
 const serviceRoutes = require('./routes/service.routes')
 const cartRoutes = require('./routes/cart.routes')
 const orderRoutes = require('./routes/order.routes')
+const checkoutRoutes = require('./routes/checkout.routes')
 
 const app = express()
 
@@ -25,6 +26,7 @@ app.use("/api/users", userRoutes)
 app.use("/api/services", serviceRoutes)
 app.use("/api/cart", cartRoutes)
 app.use("/api/orders", orderRoutes)
+app.use("/api/orders", checkoutRoutes)
 
 app.use((req, res) => {
   res.status(404).json({ msg: "Route not found" })
