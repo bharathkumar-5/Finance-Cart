@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react"
-import axios from "axios"
 import { AuthContext } from "../context/AuthContext"
 import { useNavigate, useLocation } from "react-router-dom"
+import apiClient from "../api/apiClient" // use apiClient instead of axios
 
 const Services = () => {
   const [services, setServices] = useState([])
@@ -12,11 +12,11 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const res = await axios.get("/api/services")
+        const res = await apiClient.get("/services") // ✅ use apiClient
         setServices(res.data)
       } catch {
-      alert("Failed to fetch service")
-    }
+        alert("Failed to fetch service")
+      }
     }
     fetchServices()
   }, [])
@@ -34,9 +34,7 @@ const Services = () => {
       quantity: 1
     }
     try {
-      await axios.post("/api/cart/add", payload, {
-        headers: { Authorization: `Bearer ${token}` }
-      })
+      await apiClient.post("/cart/add", payload, { headers: { Authorization: `Bearer ${token}` } }) // ✅ use apiClient
       alert("Added to cart")
     } catch (error) {
       if (error.response?.status === 401) {
