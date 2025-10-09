@@ -26,7 +26,7 @@ app.use("/api/users", userRoutes)
 app.use("/api/services", serviceRoutes)
 app.use("/api/cart", cartRoutes)
 app.use("/api/orders", orderRoutes)
-app.use("/api/orders", checkoutRoutes)
+app.use("/api/checkout", checkoutRoutes)
 
 app.use((req, res) => {
   res.status(404).json({ msg: "Route not found" })
